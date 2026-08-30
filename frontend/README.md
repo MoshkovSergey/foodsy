@@ -24,10 +24,14 @@ frontend/
 
 ```bash
 cd frontend
-npm install                 # создаст package-lock.json
+npm install                 # разрешит дерево зависимостей и дополнит package-lock.json
 npm run dev                 # http://localhost:3000
 npm run build               # прод-сборка в ../dist
 ```
+
+> `package-lock.json` лежит в репозитории как стартовый (корневая запись,
+> lockfileVersion 3): при первом `npm install` npm сам допишет полное дерево
+> транзитивных зависимостей с integrity-хешами.
 
 Из корня моно-репо тоже работает: `npm run dev` / `npm run build`
 (корневой package.json делегирует команды сюда).
