@@ -1,5 +1,2 @@
-export default function App() {
-  return (
-    <div/>
-  );
-}
+// Точка входа сборки: приложение живёт в frontend/src
+export { default } from "../frontend/src/App";
