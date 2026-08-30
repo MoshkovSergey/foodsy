@@ -1,5 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Author, Recipe, authorById, formatDate, plural, recipesByAuthor, tagById } from "../data";
+
+/* ── Фото блюда с рисованным fallback (если ссылка недоступна) ────────── */
+export function FoodImg({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className={`grid place-items-center bg-deep ${className}`} role="img" aria-label={alt}>
+        <svg viewBox="0 0 96 96" className="w-1/2 max-w-[110px]" fill="none" aria-hidden="true">
+          <circle cx="48" cy="50" r="30" fill="#ffb03a" fillOpacity="0.06" />
+          <circle cx="48" cy="50" r="30" stroke="#ffb03a" strokeOpacity="0.25" strokeWidth="1.5" strokeDasharray="3 6" />
+          <path d="M30 52h36v10a12 12 0 0 1-12 12H42a12 12 0 0 1-12-12V52Z" stroke="#ffb03a" strokeWidth="2.5" strokeLinejoin="round" />
+          <path d="M26 52h44" stroke="#ff5d45" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M66 56c3 0 4.5-1.6 4.5-4s-1.9-3.8-4.5-3.4" stroke="#ffb03a" strokeWidth="2" strokeLinecap="round" />
+          <path d="M40 46c0-4 3-4.5 3-9M52 46c0-4 3-4.5 3-9" stroke="#3ed6c3" strokeWidth="2.5" strokeLinecap="round" className="steam-path" />
+        </svg>
+      </div>
+    );
+  }
+  return <img src={src} alt={alt} loading="lazy" className={className} onError={() => setFailed(true)} />;
+}
 import {
   IconArrowLeft,
   IconArrowRight,
@@ -99,12 +119,7 @@ export function RecipeCard({
       aria-label={`Рецепт: ${recipe.title}`}
     >
       <div className="relative aspect-[3/2] overflow-hidden bg-deep">
-        <img
-          src={recipe.image}
-          alt={recipe.title}
-          loading="lazy"
-          className="rcard-img w-full h-full object-cover"
-        />
+        <FoodImg src={recipe.image} alt={recipe.title} className="rcard-img w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-coal/70 via-transparent to-transparent" />
         <div className="rcard-sheen" />
 
@@ -262,7 +277,7 @@ export function AuthorCard({
             className="group/thumb relative aspect-[4/3] overflow-hidden rounded-lg border border-line"
             aria-label={`Открыть: ${r.title}`}
           >
-            <img src={r.image} alt={r.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover/thumb:scale-110" />
+            <FoodImg src={r.image} alt={r.title} className="w-full h-full object-cover transition-transform duration-700 group-hover/thumb:scale-110" />
             <span className="absolute inset-0 bg-coal/30 opacity-0 group-hover/thumb:opacity-100 transition-opacity grid place-items-center">
               <IconArrowRight className="w-4 h-4 text-saffron" />
             </span>

@@ -61,16 +61,16 @@ export const AUTHORS: Author[] = [
 
 // Сгенерированные фото (единая стилистика: тёмный сланец, тёплый свет)
 const IMG = {
-  pancakes: "https://image.qwenlm.ai/generated-images/cd177f0a-b824-4f0c-8969-ef97a0cf063a/_result.png",
-  shakshuka: "https://image.qwenlm.ai/generated-images/3b9ab321-a717-42a7-88c7-1db5c84ca5d9/_result.png",
-  syrniki: "https://image.qwenlm.ai/generated-images/a540d679-0cd4-4efb-9e98-2402ccc687da/_result.png",
-  borscht: "https://image.qwenlm.ai/generated-images/498c6c41-d179-4dbb-8cab-b5b1bac5998d/_result.png",
-  caesar: "https://image.qwenlm.ai/generated-images/fb9fee7a-eb2d-4e0c-b1f4-643b6780f0a3/_result.png",
-  ramen: "https://image.qwenlm.ai/generated-images/13f60c31-17de-4d01-bb50-e8c8787e5cdb/_result.png",
-  carbonara: "https://image.qwenlm.ai/generated-images/ebda8d2d-f5be-4510-9ae5-d05bc46188db/_result.png",
-  steak: "https://image.qwenlm.ai/generated-images/d8627942-1657-4c44-b3b2-71e176f3a584/_result.png",
-  salmon: "https://image.qwenlm.ai/generated-images/7ff52805-586e-4407-b13f-02b7df47e4d9/_result.png",
-  cheesecake: "https://image.qwenlm.ai/generated-images/edb027e9-994d-4ae3-a7f7-9aa937a8b2b1/_result.png",
+  pancakes: "https://image.qwenlm.ai/generated-images/5b199a2c-0a61-4c01-88db-de5acd5456fa/_result.png",
+  shakshuka: "https://image.qwenlm.ai/generated-images/c249227d-d598-477b-93f6-83546358261a/_result.png",
+  syrniki: "https://image.qwenlm.ai/generated-images/bb84fc19-7b75-4cf3-9bfc-30092f23f62f/_result.png",
+  borscht: "https://image.qwenlm.ai/generated-images/2f7dd6dc-eb0b-4108-b59c-60b1e832af2f/_result.png",
+  caesar: "https://image.qwenlm.ai/generated-images/56177fe0-d35f-4265-b8f6-fdcb6e1a6f30/_result.png",
+  ramen: "https://image.qwenlm.ai/generated-images/52e0e975-7d97-4106-be6a-a009ef71fe36/_result.png",
+  carbonara: "https://image.qwenlm.ai/generated-images/155ea183-d08b-475f-96a4-2e27d4c81df2/_result.png",
+  steak: "https://image.qwenlm.ai/generated-images/d16e736a-c1f1-463b-920c-4da9b1e92f06/_result.png",
+  salmon: "https://image.qwenlm.ai/generated-images/8dc4a201-2632-42cd-bf7c-1e9f47505b80/_result.png",
+  cheesecake: "https://image.qwenlm.ai/generated-images/514ed426-35dc-4b48-96d7-be61f46e72eb/_result.png",
 };
 
 export const RECIPES: Recipe[] = [
