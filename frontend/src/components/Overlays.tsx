@@ -66,7 +66,7 @@ export function RecipeModal({
   return (
     <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-6" role="dialog" aria-modal="true">
       <div className="fade-bg absolute inset-0 bg-coal/85 backdrop-blur-sm" onClick={onClose} />
-      <div className="modal-in relative w-full sm:max-w-4xl max-h-[92vh] overflow-hidden rounded-t-3xl sm:rounded-3xl border border-line bg-panel shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]">
+      <div className="modal-in relative flex flex-col w-full sm:max-w-4xl max-h-[92vh] overflow-hidden rounded-t-3xl sm:rounded-3xl border border-line bg-panel shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]">
         <button
           onClick={onClose}
           className="icon-btn absolute top-4 right-4 z-20 grid place-items-center w-10 h-10 rounded-full bg-coal/70 border border-line text-mute hover:text-coral"
@@ -75,11 +75,11 @@ export function RecipeModal({
           <IconClose className="w-5 h-5" />
         </button>
 
-        <div className="grid md:grid-cols-[0.95fr_1.05fr] max-h-[92vh]">
-          <div className="relative h-56 md:h-auto bg-deep overflow-hidden">
+        <div className="grid flex-1 min-h-0 md:grid-cols-[0.95fr_1.05fr] grid-rows-[auto_minmax(0,1fr)] md:grid-rows-1">
+          <div className="relative h-60 md:h-auto min-h-0 bg-deep overflow-hidden">
             <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-coal/80 via-transparent to-transparent" />
-            <Steam className="absolute bottom-6 left-1/2 -translate-x-1/2 w-16 h-16 text-ink/70" />
+            <Steam className="absolute bottom-16 left-1/2 -translate-x-1/2 w-14 h-14 text-ink/70" />
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
               {recipe.tags.map((t) => {
                 const tag = tagById(t);
@@ -93,7 +93,7 @@ export function RecipeModal({
             </div>
           </div>
 
-          <div className="overflow-y-auto p-6 sm:p-8 hscroll">
+          <div className="overflow-y-auto min-h-0 p-6 sm:p-8 hscroll">
             <p className="font-mono text-[11px] text-dim uppercase tracking-[0.2em]">
               рецепт №{String(recipe.id).padStart(3, "0")} · {formatDate(recipe.publishedAt)}
             </p>
@@ -171,7 +171,7 @@ export function RecipeModal({
               ))}
             </ol>
 
-            <div className="sticky bottom-0 mt-8 -mx-6 sm:-mx-8 px-6 sm:px-8 py-4 bg-gradient-to-t from-panel via-panel/95 to-transparent flex gap-3">
+            <div className="sticky bottom-0 mt-8 -mx-6 sm:-mx-8 px-6 sm:px-8 pt-5 pb-5 border-t border-line/50 bg-gradient-to-t from-panel via-panel/95 to-transparent flex gap-3">
               <button
                 onClick={onFav}
                 className={`flex-1 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-extrabold border transition-colors ${
@@ -348,7 +348,8 @@ export function LoginModal({
           <label className="block">
             <span className="text-[11px] font-bold text-mute uppercase tracking-wider">Email</span>
             <input
-              type="text"
+              type="email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="shef@kuhnya.ru"

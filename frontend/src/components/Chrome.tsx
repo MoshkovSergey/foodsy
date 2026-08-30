@@ -231,7 +231,7 @@ export function LiquidHeader({
             ) : (
               <button
                 onClick={onLogin}
-                className="liquid-btn rounded-full px-3 sm:px-5 py-2.5 text-[11px] sm:text-sm font-extrabold text-coal"
+                className="liquid-btn group rounded-full px-3 sm:px-5 py-2.5 text-[11px] sm:text-sm font-extrabold text-coal"
               >
                 <span className="absolute inset-[2px] rounded-full bg-saffron grid place-items-center transition-colors group-hover:bg-amber2">
                   <span className="relative z-10">Войти</span>
@@ -261,7 +261,7 @@ export function Ticker() {
       </span>
     ));
   return (
-    <div className="marquee relative overflow-hidden border-y border-line/70 bg-deep/60 py-3.5" aria-hidden="true">
+    <div className="marquee relative overflow-hidden border-y border-line/70 bg-deep/60 py-3.5 select-none" aria-hidden="true">
       <div className="marquee-track">
         {row("a")}
         {row("b")}

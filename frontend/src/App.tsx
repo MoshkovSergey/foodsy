@@ -182,7 +182,7 @@ export default function App() {
   const tagCount = (id: string) => RECIPES.filter((r) => r.tags.includes(id as Recipe["tags"][number])).length;
 
   const renderCard = (r: Recipe, i: number) => (
-    <Reveal key={r.id} delay={(i % 3) * 90}>
+    <Reveal key={r.id} delay={(i % 3) * 90} className="h-full">
       <RecipeCard
         recipe={r}
         isFav={user.favorites.includes(r.id)}
@@ -367,7 +367,7 @@ export default function App() {
 
         {/* ───────── ЛЕНТА / ИЗБРАННОЕ ───────── */}
         {view !== "subs" && (
-          <section id="feed" className="max-w-6xl mx-auto px-5 pt-16 sm:pt-20">
+          <section id="feed" className="max-w-6xl mx-auto px-5 pt-16 sm:pt-20 scroll-mt-24">
             <Reveal>
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
@@ -592,7 +592,7 @@ export default function App() {
                 />
               ) : (
                 AUTHORS.filter((a) => user.subscriptions.includes(a.id)).map((a, i) => (
-                  <Reveal key={a.id} delay={(i % 3) * 90}>
+                  <Reveal key={a.id} delay={(i % 3) * 90} className="h-full">
                     <AuthorCard
                       author={a}
                       isSub
@@ -629,7 +629,7 @@ export default function App() {
 
           <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {AUTHORS.map((a, i) => (
-              <Reveal key={a.id} delay={(i % 3) * 90}>
+              <Reveal key={a.id} delay={(i % 3) * 90} className="h-full">
                 <AuthorCard
                   author={a}
                   isSub={user.subscriptions.includes(a.id)}
