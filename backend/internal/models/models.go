@@ -1,4 +1,4 @@
-// Package models — доменные типы и DTO API ФУДГРАМА.
+// Package models — доменные типы и DTO API ФУДСИ.
 package models
 
 import "time"

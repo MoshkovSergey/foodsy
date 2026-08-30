@@ -1,4 +1,4 @@
--- ФУДГРАМ: схема PostgreSQL
+-- ФУДСИ: схема PostgreSQL
 -- Применяется автоматически при старте сервера (store.Migrate).
 
 CREATE TABLE IF NOT EXISTS users (

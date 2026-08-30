@@ -37,7 +37,7 @@ export interface RecipesPage {
   pages: number;
 }
 
-const LS_KEY = "foodgram.state.v1";
+const LS_KEY = "foodsy.state.v1";
 // Адрес Go-бэкенда; в демо-сборке не задан — работает локальная симуляция.
 const API_URL: string | undefined = (import.meta as unknown as { env?: Record<string, string> }).env?.VITE_API_URL;
 
@@ -71,7 +71,7 @@ const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 const latency = () => delay(180 + Math.random() * 220);
 
 async function remote<T>(path: string, init?: RequestInit): Promise<T> {
-  const token = loadState().session?.email ? localStorage.getItem("foodgram.token") : null;
+  const token = loadState().session?.email ? localStorage.getItem("foodsy.token") : null;
   const res = await fetch(`${API_URL}${path}`, {
     ...init,
     headers: {
@@ -135,7 +135,7 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ email, password: "demo" }),
       });
-      localStorage.setItem("foodgram.token", res.auth_token);
+      localStorage.setItem("foodsy.token", res.auth_token);
       return res.user;
     }
     await latency();
@@ -175,7 +175,7 @@ export const api = {
 // ─── Список покупок (GET /api/recipes/shopping_cart → .txt) ────────────────
 
 export function downloadShoppingList(cartIds: number[]) {
-  const lines: string[] = ["СПИСОК ПОКУПОК • ФУДГРАМ", "═".repeat(34), ""];
+  const lines: string[] = ["СПИСОК ПОКУПОК • ФУДСИ", "═".repeat(34), ""];
   const basket = new Map<string, { amounts: string[]; recipes: string[] }>();
 
   for (const id of cartIds) {
@@ -204,7 +204,7 @@ export function downloadShoppingList(cartIds: number[]) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "foodgram-shopping-list.txt";
+  a.download = "foodsy-shopping-list.txt";
   a.click();
   URL.revokeObjectURL(url);
 }

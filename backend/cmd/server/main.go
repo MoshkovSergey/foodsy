@@ -1,8 +1,8 @@
-// ФУДГРАМ API — Go 1.27 + PostgreSQL (pgx/v5).
+// ФУДСИ API — Go 1.27 + PostgreSQL (pgx/v5).
 //
-//	FOODGRAM_DB=postgres://foodgram:foodgram@localhost:5432/foodgram?sslmode=disable
-//	FOODGRAM_JWT_SECRET=change-me
-//	FOODGRAM_PORT=8000
+//	FOODSY_DB=postgres://foodsy:foodsy@localhost:5432/foodsy?sslmode=disable
+//	FOODSY_JWT_SECRET=change-me
+//	FOODSY_PORT=8000
 package main
 
 import (
@@ -15,16 +15,16 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/foodgram/backend/internal/api"
-	"github.com/foodgram/backend/internal/store"
+	"github.com/foodsy/backend/internal/api"
+	"github.com/foodsy/backend/internal/store"
 )
 
 func main() {
 	log := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
 
-	dsn := envOr("FOODGRAM_DB", "postgres://foodgram:foodgram@localhost:5432/foodgram?sslmode=disable")
-	secret := envOr("FOODGRAM_JWT_SECRET", "dev-secret-change-me")
-	port := envOr("FOODGRAM_PORT", "8000")
+	dsn := envOr("FOODSY_DB", "postgres://foodsy:foodsy@localhost:5432/foodsy?sslmode=disable")
+	secret := envOr("FOODSY_JWT_SECRET", "dev-secret-change-me")
+	port := envOr("FOODSY_PORT", "8000")
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
@@ -50,7 +50,7 @@ func main() {
 	}
 
 	go func() {
-		log.Info("foodgram api listening", "addr", httpServer.Addr)
+		log.Info("foodsy api listening", "addr", httpServer.Addr)
 		if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Error("serve", "err", err)
 			os.Exit(1)

@@ -238,7 +238,7 @@ export default function App() {
                 <p className="mt-6 max-w-md text-[15px] leading-relaxed text-mute">
                   Лента живых рецептов: фильтруйте по тегам, подписывайтесь на поваров, собирайте избранное
                   и выгружайте <span className="text-ink font-semibold">список покупок</span> одним файлом —
-                  как в Foodgram, только с огоньком.
+                  как в Foodsy — только с огоньком.
                 </p>
               </Reveal>
 

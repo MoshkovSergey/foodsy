@@ -164,11 +164,11 @@ export function LiquidHeader({
           <button
             onClick={() => onView("feed")}
             className="group flex items-center gap-2.5 shrink-0"
-            aria-label="ФУДГРАМ — на главную"
+            aria-label="ФУДСИ — на главную"
           >
             <IconLogo className="w-8 h-8 transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110" />
             <span className="font-display text-sm sm:text-base font-extrabold tracking-tight hidden sm:inline">
-              ФУД<span className="text-saffron">ГРАМ</span>
+              ФУД<span className="text-saffron">СИ</span>
             </span>
           </button>
 
@@ -291,7 +291,7 @@ export function Footer({ onView }: { onView: (v: View) => void }) {
           className="pointer-events-none absolute -top-4 left-1/2 -translate-x-1/2 display-xl font-black text-[19vw] sm:text-[10rem] leading-none text-hollow opacity-40 select-none whitespace-nowrap"
           aria-hidden="true"
         >
-          ФУДГРАМ
+          ФУДСИ
         </div>
 
         <div className="relative grid gap-12 md:grid-cols-[1.2fr_1fr_0.8fr] pt-16">
@@ -299,12 +299,12 @@ export function Footer({ onView }: { onView: (v: View) => void }) {
             <div className="flex items-center gap-2.5">
               <IconLogo className="w-9 h-9" />
               <span className="font-display text-lg font-extrabold">
-                ФУД<span className="text-saffron">ГРАМ</span>
+                ФУД<span className="text-saffron">СИ</span>
               </span>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-mute max-w-sm">
               Социальная сеть рецептов по мотивам{" "}
-              <span className="text-ink font-semibold">Foodgram</span>: публикуйте блюда, подписывайтесь на
+              <span className="text-ink font-semibold">Foodsy</span>: публикуйте блюда, подписывайтесь на
               авторов, собирайте избранное и выгружайте список покупок одним файлом.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -373,7 +373,7 @@ export function Footer({ onView }: { onView: (v: View) => void }) {
         </div>
 
         <div className="relative mt-12 pt-6 border-t border-line/60 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-dim">© 2026 ФУДГРАМ · готовьте с удовольствием</p>
+          <p className="text-xs text-dim">© 2026 ФУДСИ · готовьте с удовольствием</p>
           <p className="text-xs text-dim flex items-center gap-1.5">
             сделано на кухне <IconSpark className="w-3.5 h-3.5 text-saffron" /> frontend / backend monorepo
           </p>

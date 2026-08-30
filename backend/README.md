@@ -1,4 +1,4 @@
-# ФУДГРАМ · backend
+# ФУДСИ · backend
 
 REST API социальной сети рецептов: **Go 1.27** (net/http, без фреймворков), **PostgreSQL 16** через `pgx/v5`,
 JWT-токены в стиле `Authorization: Token <jwt>`.
@@ -29,8 +29,8 @@ docker compose up --build        # API на :8000, PostgreSQL на :5432
 или вручную:
 
 ```bash
-export FOODGRAM_DB="postgres://foodgram:foodgram@localhost:5432/foodgram?sslmode=disable"
-export FOODGRAM_JWT_SECRET="change-me"
+export FOODSY_DB="postgres://foodsy:foodsy@localhost:5432/foodsy?sslmode=disable"
+export FOODSY_JWT_SECRET="change-me"
 go run ./cmd/server
 ```
 

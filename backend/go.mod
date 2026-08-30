@@ -1,4 +1,4 @@
-module github.com/foodgram/backend
+module github.com/foodsy/backend
 
 go 1.27
 

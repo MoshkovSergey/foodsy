@@ -1,4 +1,4 @@
-// Package api — HTTP-слой ФУДГРАМА: net/http ServeMux (Go 1.22+),
+// Package api — HTTP-слой ФУДСИ: net/http ServeMux (Go 1.22+),
 // JWT-аутентификация в стиле «Token <jwt>», CORS для фронтенда.
 package api
 
@@ -16,8 +16,8 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/foodgram/backend/internal/models"
-	"github.com/foodgram/backend/internal/store"
+	"github.com/foodsy/backend/internal/models"
+	"github.com/foodsy/backend/internal/store"
 )
 
 type ctxKey string
@@ -40,7 +40,7 @@ func (srv *Server) Routes() http.Handler {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /api/healthz", func(w http.ResponseWriter, r *http.Request) {
-		writeJSON(w, http.StatusOK, map[string]string{"status": "ok", "service": "foodgram-api"})
+		writeJSON(w, http.StatusOK, map[string]string{"status": "ok", "service": "foodsy-api"})
 	})
 
 	// auth
@@ -140,7 +140,7 @@ func (srv *Server) parseAuth(r *http.Request) (int64, bool) {
 func (srv *Server) issueToken(userID int64) (string, error) {
 	claims := jwt.RegisteredClaims{
 		Subject:   strconv.FormatInt(userID, 10),
-		Issuer:    "foodgram",
+		Issuer:    "foodsy",
 		IssuedAt:  jwt.NewNumericDate(time.Now()),
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(7 * 24 * time.Hour)),
 	}
@@ -319,8 +319,8 @@ func (srv *Server) handleShoppingCartDownload(w http.ResponseWriter, r *http.Req
 		return
 	}
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-	w.Header().Set("Content-Disposition", `attachment; filename="foodgram-shopping-list.txt"`)
-	http.ServeContent(w, r, "foodgram-shopping-list.txt", at, strings.NewReader(text))
+	w.Header().Set("Content-Disposition", `attachment; filename="foodsy-shopping-list.txt"`)
+	http.ServeContent(w, r, "foodsy-shopping-list.txt", at, strings.NewReader(text))
 }
 
 // ─── subscription handlers ─────────────────────────────────────────────────

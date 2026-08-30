@@ -1,4 +1,4 @@
-// Кастомные инлайн-иконки ФУДГРАМА — рисованы под проект, stroke = currentColor.
+// Кастомные инлайн-иконки ФУДСИ — рисованы под проект, stroke = currentColor.
 import React from "react";
 
 type P = { className?: string; strokeWidth?: number };

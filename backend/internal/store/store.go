@@ -13,7 +13,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/foodgram/backend/internal/models"
+	"github.com/foodsy/backend/internal/models"
 )
 
 //go:embed migrations/*.sql
@@ -441,7 +441,7 @@ func (s *Store) ShoppingCart(ctx context.Context, userID int64) (string, time.Ti
 	}
 
 	var b strings.Builder
-	b.WriteString("СПИСОК ПОКУПОК • ФУДГРАМ\n")
+	b.WriteString("СПИСОК ПОКУПОК • ФУДСИ\n")
 	b.WriteString(strings.Repeat("═", 34) + "\n\n")
 	for _, key := range order {
 		e := agg[key]

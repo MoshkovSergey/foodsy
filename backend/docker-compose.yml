@@ -2,15 +2,15 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: foodgram
-      POSTGRES_PASSWORD: foodgram
-      POSTGRES_DB: foodgram
+      POSTGRES_USER: foodsy
+      POSTGRES_PASSWORD: foodsy
+      POSTGRES_DB: foodsy
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pg:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U foodgram"]
+      test: ["CMD-SHELL", "pg_isready -U foodsy"]
       interval: 5s
       timeout: 3s
       retries: 10
@@ -21,11 +21,11 @@ services:
       db:
         condition: service_healthy
     environment:
-      FOODGRAM_DB: postgres://foodgram:foodgram@db:5432/foodgram?sslmode=disable
-      FOODGRAM_JWT_SECRET: ${FOODGRAM_JWT_SECRET:-change-me-in-prod}
-      FOODGRAM_PORT: "8000"
+      FOODSY_DB: postgres://foodsy:foodsy@db:5432/foodsy?sslmode=disable
+      FOODSY_JWT_SECRET: ${FOODSY_JWT_SECRET:-change-me-in-prod}
+      FOODSY_PORT: "8000"
     ports:
       - "8000:8000"
 
 volumes:
-  pgdata:
+  pg

@@ -339,7 +339,7 @@ export function LoginModal({
         </button>
 
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-saffron">POST /api/auth/token/login</p>
-        <h2 className="mt-2 display-xl text-xl font-extrabold">Вход в ФУДГРАМ</h2>
+        <h2 className="mt-2 display-xl text-xl font-extrabold">Вход в ФУДСИ</h2>
         <p className="mt-2 text-xs text-mute leading-relaxed">
           Демо-режим: подойдёт любой email. Токен выдаёт Go-бэкенд, в браузере — симуляция.
         </p>
