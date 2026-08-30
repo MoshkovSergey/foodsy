@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Recipe, authorById, formatDate, plural, tagById } from "../data";
-import { Avatar, SubscribeBtn } from "./Cards";
+import { Avatar, FoodImg, SubscribeBtn } from "./Cards";
 import { Steam } from "../icons";
 import {
   IconBasket,
@@ -77,7 +77,7 @@ export function RecipeModal({
 
         <div className="grid flex-1 min-h-0 md:grid-cols-[0.95fr_1.05fr] grid-rows-[auto_minmax(0,1fr)] md:grid-rows-1">
           <div className="relative h-60 md:h-auto min-h-0 bg-deep overflow-hidden">
-            <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" />
+            <FoodImg src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-coal/80 via-transparent to-transparent" />
             <Steam className="absolute bottom-16 left-1/2 -translate-x-1/2 w-14 h-14 text-ink/70" />
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
@@ -257,7 +257,7 @@ export function CartDrawer({
           )}
           {items.map((r) => (
             <div key={r.id} className="group flex gap-3 rounded-2xl border border-line bg-coal/40 p-3 hover:border-line2 transition-colors">
-              <img src={r.image} alt="" className="w-16 h-16 rounded-xl object-cover shrink-0" loading="lazy" />
+              <FoodImg src={r.image} alt="" className="w-16 h-16 rounded-xl object-cover shrink-0" />
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-bold leading-snug line-clamp-2">{r.title}</p>
                 <p className="mt-1 text-[11px] text-dim font-mono">

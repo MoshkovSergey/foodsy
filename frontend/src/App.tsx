@@ -12,7 +12,7 @@ import {
 } from "./data";
 import { RecipesPage, api, downloadShoppingList, loadState, saveState } from "./api";
 import { Counter, Footer, LiquidHeader, Reveal, Scramble, Ticker, View, prefersReduced } from "./components/Chrome";
-import { AuthorCard, EmptyState, Pagination, RecipeCard, SkeletonCard, SubscribeBtn } from "./components/Cards";
+import { AuthorCard, EmptyState, FoodImg, Pagination, RecipeCard, SkeletonCard, SubscribeBtn } from "./components/Cards";
 import { CartDrawer, LoginModal, RecipeModal, Toast, Toasts } from "./components/Overlays";
 import {
   IconArrowRight,
@@ -297,7 +297,7 @@ export default function App() {
                 onKeyDown={(e) => e.key === "Enter" && setOpenId(featured.id)}
               >
                 <div className="relative aspect-[16/11] overflow-hidden">
-                  <img src={featured.image} alt={featured.title} className="rcard-img w-full h-full object-cover" />
+                  <FoodImg src={featured.image} alt={featured.title} className="rcard-img w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-coal via-coal/25 to-transparent" />
                   <div className="rcard-sheen" />
                   <Steam className="absolute top-6 right-6 w-12 h-12 text-saffron/80" />
