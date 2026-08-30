@@ -12,14 +12,10 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-<<<<<<< HEAD
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.18.3",
     "recharts": "^2.10.0",
     "uuid": "^14.0.2"
-=======
-    "react-dom": "^18.2.0"
->>>>>>> b5edce3c861cd0860df5d1b5e91d5ee8332bd5e1
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.7",
