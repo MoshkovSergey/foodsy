@@ -1,5 +1,17 @@
+# зависимости
+node_modules
+
+# сборка фронтенда
+dist
+
+# Go
+backend/tmp
+
+# служебное
+.DS_Store
+*.log
+.env.local
 node_modules/
 .next/
 dist/
 build/
-*.log

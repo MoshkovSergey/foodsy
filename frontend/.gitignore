@@ -1,0 +1,15 @@
+# зависимости
+node_modules
+
+# сборка (dist собирается в корень моно-репо)
+../dist
+dist
+
+# локальные переменные окружения
+.env.local
+.env.*.local
+
+# логи и служебное
+*.log
+npm-debug.log*
+.DS_Store

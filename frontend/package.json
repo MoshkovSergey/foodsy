@@ -1,13 +1,12 @@
 {
-  "name": "foodsy-monorepo",
+  "name": "foodsy-frontend",
   "private": true,
+  "version": "1.0.0",
   "type": "module",
-  "description": "ФУДСИ — моно-репо: frontend/ (React) + backend/ (Go + PostgreSQL). Команды делегируются во frontend.",
   "scripts": {
-    "dev": "cd frontend && vite",
-    "build": "cd frontend && vite build",
-    "preview": "cd frontend && vite preview",
-    "typecheck": "tsc --noEmit -p frontend"
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
