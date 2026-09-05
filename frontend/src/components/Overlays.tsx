@@ -171,10 +171,10 @@ export function RecipeModal({
               ))}
             </ol>
 
-            <div className="sticky bottom-0 mt-8 -mx-6 sm:-mx-8 px-6 sm:px-8 pt-5 pb-5 border-t border-line/50 bg-gradient-to-t from-panel via-panel/95 to-transparent flex gap-3">
+            <div className="sticky bottom-0 mt-8 -mx-6 sm:-mx-8 px-6 sm:px-8 pt-5 pb-5 border-t border-line/50 bg-gradient-to-t from-panel via-panel/95 to-transparent flex flex-wrap gap-3">
               <button
                 onClick={onFav}
-                className={`flex-1 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-extrabold border transition-colors ${
+                className={`min-w-[min(100%,12rem)] min-h-11 flex-1 inline-flex items-center justify-center gap-2 rounded-full px-3 py-3 text-center text-sm font-extrabold border transition-colors ${
                   isFav
                     ? "bg-coral/15 border-coral/60 text-coral"
                     : "border-line2 text-ink hover:border-coral/60 hover:text-coral"
@@ -185,7 +185,7 @@ export function RecipeModal({
               </button>
               <button
                 onClick={onCart}
-                className={`flex-1 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-extrabold border transition-colors ${
+                className={`min-w-[min(100%,12rem)] min-h-11 flex-1 inline-flex items-center justify-center gap-2 rounded-full px-3 py-3 text-center text-sm font-extrabold border transition-colors ${
                   inCart
                     ? "bg-mint/15 border-mint/60 text-mint"
                     : "border-line2 text-ink hover:border-mint/60 hover:text-mint"

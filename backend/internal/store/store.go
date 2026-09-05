@@ -188,10 +188,11 @@ func (s *Store) RecipeByID(ctx context.Context, id, viewerID int64) (models.Reci
 	if err != nil {
 		return r, err
 	}
-	if err := s.enrichRecipes(ctx, []models.RecipeOut{r}, viewerID); err != nil {
+	recipes := []models.RecipeOut{r}
+	if err := s.enrichRecipes(ctx, recipes, viewerID); err != nil {
 		return r, err
 	}
-	return r, nil
+	return recipes[0], nil
 }
 
 // ListRecipes — лента с фильтрами и пагинацией. viewerID = 0 для анонимов.
@@ -219,10 +220,26 @@ func (s *Store) ListRecipes(ctx context.Context, f models.RecipeFilter, viewerID
 		args = append(args, *f.Author)
 		conds = append(conds, fmt.Sprintf(`r.author_id = $%d`, len(args)))
 	}
+	if strings.TrimSpace(f.Search) != "" {
+		args = append(args, "%"+strings.ToLower(strings.TrimSpace(f.Search))+"%")
+		searchArg := len(args)
+		conds = append(conds, fmt.Sprintf(`(lower(r.name) LIKE $%d OR lower(r.text) LIKE $%d OR EXISTS (
+			SELECT 1 FROM recipe_ingredients ri JOIN ingredients i ON i.id = ri.ingredient_id
+			WHERE ri.recipe_id = r.id AND lower(i.name) LIKE $%d
+		))`, searchArg, searchArg, searchArg))
+	}
+	if f.OnlySubscribed && viewerID > 0 {
+		args = append(args, viewerID)
+		conds = append(conds, fmt.Sprintf(`EXISTS (SELECT 1 FROM subscriptions sub WHERE sub.author_id = r.author_id AND sub.subscriber_id = $%d)`, len(args)))
+	} else if f.OnlySubscribed {
+		conds = append(conds, "FALSE")
+	}
 	if f.IsFavorited && viewerID > 0 {
 		conds = append(conds, fmt.Sprintf(`
 			EXISTS (SELECT 1 FROM favorites fav WHERE fav.recipe_id = r.id AND fav.user_id = $%d)`,
 			func() int { args = append(args, viewerID); return len(args) }()))
+	} else if f.IsFavorited {
+		conds = append(conds, "FALSE")
 	}
 
 	where := ""
@@ -239,7 +256,7 @@ func (s *Store) ListRecipes(ctx context.Context, f models.RecipeFilter, viewerID
 	dataQ := `
 		SELECT ` + recipeBaseCols + `
 		FROM recipes r JOIN users a ON a.id = r.author_id` + where + `
-		ORDER BY r.created_at DESC
+		ORDER BY ` + recipeSort(f.Sort) + `
 		LIMIT $` + fmt.Sprint(len(args)-1) + ` OFFSET $` + fmt.Sprint(len(args))
 
 	rows, err := s.pool.Query(ctx, dataQ, args...)
@@ -266,6 +283,17 @@ func (s *Store) ListRecipes(ctx context.Context, f models.RecipeFilter, viewerID
 	page.Results = recipes
 	page.Count = int(total)
 	return page, total, nil
+}
+
+func recipeSort(sort string) string {
+	switch sort {
+	case "popular":
+		return "r.created_at DESC, (SELECT count(*) FROM favorites f WHERE f.recipe_id = r.id) DESC"
+	case "fast":
+		return "r.cooking_time ASC, r.created_at DESC"
+	default:
+		return "r.created_at DESC"
+	}
 }
 
 type rowScanner interface {

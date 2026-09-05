@@ -165,13 +165,13 @@ export function RecipeCard({
           <SubscribeBtn subscribed={isSub} onClick={onSub} compact />
         </div>
 
-        <div className="mt-4 pt-4 border-t border-line/70 flex items-center justify-between">
+        <div className="mt-4 pt-4 border-t border-line/70 flex flex-wrap items-center justify-between gap-2">
           <button
             onClick={(e) => {
               e.stopPropagation();
               onFav();
             }}
-            className={`icon-btn inline-flex items-center gap-2 rounded-full px-3 py-1.5 border text-xs font-bold ${
+            className={`icon-btn inline-flex min-h-9 items-center gap-2 rounded-full px-3 py-1.5 border text-xs font-bold ${
               isFav
                 ? "border-coral/50 bg-coral/10 text-coral"
                 : "border-line2 text-mute hover:text-coral hover:border-coral/50"
@@ -189,7 +189,7 @@ export function RecipeCard({
               e.stopPropagation();
               onCart();
             }}
-            className={`icon-btn inline-flex items-center gap-2 rounded-full px-3 py-1.5 border text-xs font-bold ${
+            className={`icon-btn inline-flex min-h-9 items-center gap-2 rounded-full px-3 py-1.5 border text-xs font-bold ${
               inCart
                 ? "border-mint/50 bg-mint/10 text-mint"
                 : "border-line2 text-mute hover:text-mint hover:border-mint/50"
@@ -285,7 +285,7 @@ export function AuthorCard({
         ))}
       </div>
 
-      <div className="mt-5 pt-4 border-t border-line/70 flex items-center justify-between gap-3">
+      <div className="mt-5 pt-4 border-t border-line/70 flex flex-wrap items-center justify-between gap-3">
         <SubscribeBtn subscribed={isSub} onClick={onSub} />
         <button
           onClick={onShowRecipes}
@@ -371,7 +371,7 @@ export function EmptyState({
       {actionLabel && onAction && (
         <button
           onClick={onAction}
-          className="mt-6 liquid-btn rounded-full px-6 py-3 text-sm font-extrabold text-coal"
+          className="mt-6 liquid-btn min-w-40 whitespace-nowrap rounded-full px-6 py-3 text-sm font-extrabold text-coal"
         >
           <span className="absolute inset-[2px] rounded-full bg-saffron">{actionLabel}</span>
         </button>

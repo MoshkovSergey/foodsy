@@ -584,7 +584,13 @@ export const RECIPES: Recipe[] = [
 
 // ─── Утилиты ───────────────────────────────────────────────────────────────
 
-export const authorById = (id: number): Author => AUTHORS.find((a) => a.id === id)!;
+export const authorById = (id: number): Author =>
+  AUTHORS.find((a) => a.id === id) ?? {
+    id,
+    name: `Повар #${id}`,
+    bio: "Автор рецептов ФУДСИ.",
+    hue: "#3ed6c3",
+  };
 export const tagById = (id: TagId): Tag => TAGS.find((t) => t.id === id)!;
 export const recipeById = (id: number): Recipe => RECIPES.find((r) => r.id === id)!;
 

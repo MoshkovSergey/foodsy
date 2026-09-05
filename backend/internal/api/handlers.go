@@ -17,7 +17,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/MoshkovSergey/foodsy/backend/internal/models"
-	"github.com/MoshkovSergey/foodsy/backend/store"
+	"github.com/MoshkovSergey/foodsy/backend/internal/store"
 )
 
 type ctxKey string
@@ -195,7 +195,7 @@ func (srv *Server) handleLogin(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, http.StatusInternalServerError, "token")
 		return
 	}
-	writeJSON(w, http.StatusOK, models.TokenResponse{AuthToken: token})
+	writeJSON(w, http.StatusOK, models.TokenResponse{AuthToken: token, User: u})
 }
 
 func (srv *Server) handleMe(w http.ResponseWriter, r *http.Request) {
@@ -212,10 +212,13 @@ func (srv *Server) handleMe(w http.ResponseWriter, r *http.Request) {
 func (srv *Server) handleListRecipes(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	filter := models.RecipeFilter{
-		Tags:        splitNonEmpty(q["tags"], ","),
-		IsFavorited: q.Get("is_favorited") == "true",
-		Page:        atoiOr(q.Get("page"), 1),
-		Limit:       atoiOr(q.Get("limit"), 6),
+		Tags:           splitNonEmpty(q["tags"], ","),
+		IsFavorited:    q.Get("is_favorited") == "true",
+		OnlySubscribed: q.Get("only_subscribed") == "true",
+		Search:         q.Get("search"),
+		Sort:           q.Get("sort"),
+		Page:           atoiOr(q.Get("page"), 1),
+		Limit:          atoiOr(q.Get("limit"), 6),
 	}
 	if a := q.Get("author"); a != "" {
 		id, err := strconv.ParseInt(a, 10, 64)

@@ -5,8 +5,10 @@
 
 import {
   RECIPES,
+  Ingredient,
   Recipe,
   Session,
+  TagId,
   recipeById,
   authorById,
   plural,
@@ -70,6 +72,50 @@ function saveState(s: UserState) {
 const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 const latency = () => delay(180 + Math.random() * 220);
 
+type BackendUser = {
+  id: number;
+  email: string;
+  username: string;
+  first_name: string;
+};
+
+type BackendRecipe = {
+  id: number;
+  name: string;
+  text: string;
+  image: string;
+  cooking_time: number;
+  servings: number;
+  tags: { slug: TagId }[];
+  author: BackendUser;
+  ingredients: Ingredient[];
+  favorites: number;
+  pub_date: string;
+};
+
+type BackendPage = { count: number; results: BackendRecipe[] };
+
+const toSession = (user: BackendUser): Session => ({
+  id: user.id,
+  name: user.first_name || user.username,
+  email: user.email,
+});
+
+const toRecipe = (recipe: BackendRecipe): Recipe => ({
+  id: recipe.id,
+  title: recipe.name,
+  authorId: recipe.author.id,
+  image: recipe.image,
+  time: recipe.cooking_time,
+  servings: recipe.servings,
+  tags: recipe.tags.map((tag) => tag.slug),
+  description: recipe.text,
+  ingredients: recipe.ingredients,
+  steps: recipe.text ? [recipe.text] : [],
+  favorites: recipe.favorites,
+  publishedAt: recipe.pub_date,
+});
+
 async function remote<T>(path: string, init?: RequestInit): Promise<T> {
   const token = loadState().session?.email ? localStorage.getItem("foodsy.token") : null;
   const res = await fetch(`${API_URL}${path}`, {
@@ -84,11 +130,39 @@ async function remote<T>(path: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T;
 }
 
+async function remoteAction(path: string, method: "POST" | "DELETE") {
+  const token = localStorage.getItem("foodsy.token");
+  const res = await fetch(`${API_URL}${path}`, {
+    method,
+    headers: token ? { Authorization: `Token ${token}` } : {},
+  });
+  if (!res.ok) throw new Error(`API ${res.status}`);
+}
+
 // ─── Публичный контракт (зеркало REST-эндпоинтов Go-бэкенда) ───────────────
 
 export const api = {
   // GET /api/recipes?tags=&author=&is_favorited=&page=&limit=
   async getRecipes(q: RecipesQuery, state: UserState): Promise<RecipesPage> {
+    if (API_URL) {
+      const params = new URLSearchParams();
+      if (q.tags?.length) params.set("tags", q.tags.join(","));
+      if (q.author) params.set("author", String(q.author));
+      if (q.onlyFavorites) params.set("is_favorited", "true");
+      if (q.onlySubscribed) params.set("only_subscribed", "true");
+      if (q.search) params.set("search", q.search);
+      if (q.sort) params.set("sort", q.sort);
+      params.set("page", String(q.page ?? 1));
+      params.set("limit", String(q.limit ?? 6));
+      const page = await remote<BackendPage>(`/api/recipes/?${params}`);
+      const limit = q.limit ?? 6;
+      return {
+        results: page.results.map(toRecipe),
+        count: page.count,
+        page: q.page ?? 1,
+        pages: Math.max(1, Math.ceil(page.count / limit)),
+      };
+    }
     await latency();
     let list = [...RECIPES];
 
@@ -131,12 +205,22 @@ export const api = {
   // POST /api/auth/token/login
   async login(email: string, name?: string): Promise<Session> {
     if (API_URL) {
-      const res = await remote<{ auth_token: string; user: Session }>("/api/auth/token/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password: "demo" }),
-      });
+      const trimmed = email.trim().toLowerCase();
+      const username = trimmed.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "_") || `chef_${Date.now()}`;
+      let res: { auth_token: string; user: BackendUser };
+      try {
+        res = await remote("/api/users/", {
+          method: "POST",
+          body: JSON.stringify({ email: trimmed, username, first_name: name?.trim() ?? "", password: "demo" }),
+        });
+      } catch {
+        res = await remote("/api/auth/token/login", {
+          method: "POST",
+          body: JSON.stringify({ email: trimmed, password: "demo" }),
+        });
+      }
       localStorage.setItem("foodsy.token", res.auth_token);
-      return res.user;
+      return toSession(res.user);
     }
     await latency();
     const trimmed = email.trim();
@@ -152,6 +236,11 @@ export const api = {
 
   // POST /api/recipes/{id}/favorite  (DELETE — снять)
   async toggleFavorite(id: number, state: UserState): Promise<{ added: boolean }> {
+    if (API_URL) {
+      const added = !state.favorites.includes(id);
+      await remoteAction(`/api/recipes/${id}/favorite/`, added ? "POST" : "DELETE");
+      return { added };
+    }
     await latency();
     const has = state.favorites.includes(id);
     return { added: !has };
@@ -159,6 +248,11 @@ export const api = {
 
   // POST /api/recipes/{id}/shopping_cart
   async toggleCart(id: number, state: UserState): Promise<{ added: boolean }> {
+    if (API_URL) {
+      const added = !state.cart.includes(id);
+      await remoteAction(`/api/recipes/${id}/shopping_cart/`, added ? "POST" : "DELETE");
+      return { added };
+    }
     await latency();
     const has = state.cart.includes(id);
     return { added: !has };
@@ -166,6 +260,11 @@ export const api = {
 
   // POST /api/users/{id}/subscribe
   async toggleSubscription(authorId: number, state: UserState): Promise<{ added: boolean }> {
+    if (API_URL) {
+      const added = !state.subscriptions.includes(authorId);
+      await remoteAction(`/api/users/${authorId}/subscribe/`, added ? "POST" : "DELETE");
+      return { added };
+    }
     await latency();
     const has = state.subscriptions.includes(authorId);
     return { added: !has };
@@ -175,6 +274,24 @@ export const api = {
 // ─── Список покупок (GET /api/recipes/shopping_cart → .txt) ────────────────
 
 export function downloadShoppingList(cartIds: number[]) {
+  if (API_URL) {
+    const token = localStorage.getItem("foodsy.token");
+    void fetch(`${API_URL}/api/recipes/shopping_cart/`, {
+      headers: token ? { Authorization: `Token ${token}` } : {},
+    })
+      .then(async (res) => {
+        if (!res.ok) throw new Error(`API ${res.status}`);
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "foodsy-shopping-list.txt";
+        a.click();
+        URL.revokeObjectURL(url);
+      })
+      .catch(() => undefined);
+    return;
+  }
   const lines: string[] = ["СПИСОК ПОКУПОК • ФУДСИ", "═".repeat(34), ""];
   const basket = new Map<string, { amounts: string[]; recipes: string[] }>();
 

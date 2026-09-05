@@ -26,25 +26,25 @@ type Ingredient struct {
 
 // RecipeIn — ингредиенты при создании рецепта.
 type RecipeIngredientIn struct {
-	ID     int64  `json:"id"`     // id ингредиента из справочника
-	Name   string `json:"name"`   // либо новый ингредиент
+	ID     int64  `json:"id"`   // id ингредиента из справочника
+	Name   string `json:"name"` // либо новый ингредиент
 	Amount string `json:"amount"`
 }
 
 type RecipeOut struct {
-	ID           int64                  `json:"id"`
-	Name         string                 `json:"name"`
-	Text         string                 `json:"text"`
-	Image        string                 `json:"image"`
-	CookingTime  int                    `json:"cooking_time"`
-	Servings     int                    `json:"servings"`
-	Tags         []Tag                  `json:"tags"`
-	Author       User                   `json:"author"`
-	Ingredients  []RecipeIngredientOut  `json:"ingredients"`
-	IsFavorited  bool                   `json:"is_favorited"`
-	IsInCart     bool                   `json:"is_in_shopping_cart"`
-	Favorites    int                    `json:"favorites"`
-	CreatedAt    time.Time              `json:"pub_date"`
+	ID          int64                 `json:"id"`
+	Name        string                `json:"name"`
+	Text        string                `json:"text"`
+	Image       string                `json:"image"`
+	CookingTime int                   `json:"cooking_time"`
+	Servings    int                   `json:"servings"`
+	Tags        []Tag                 `json:"tags"`
+	Author      User                  `json:"author"`
+	Ingredients []RecipeIngredientOut `json:"ingredients"`
+	IsFavorited bool                  `json:"is_favorited"`
+	IsInCart    bool                  `json:"is_in_shopping_cart"`
+	Favorites   int                   `json:"favorites"`
+	CreatedAt   time.Time             `json:"pub_date"`
 }
 
 type RecipeIngredientOut struct {
@@ -69,31 +69,35 @@ type LoginRequest struct {
 
 type TokenResponse struct {
 	AuthToken string `json:"auth_token"`
+	User      User   `json:"user"`
 }
 
 type RecipeCreateRequest struct {
-	Name         string                 `json:"name"`
-	Text         string                 `json:"text"`
-	Image        string                 `json:"image"`
-	CookingTime  int                    `json:"cooking_time"`
-	Servings     int                    `json:"servings"`
-	Tags         []string               `json:"tags"` // слагi тегов
-	Ingredients  []RecipeIngredientIn   `json:"ingredients"`
+	Name        string               `json:"name"`
+	Text        string               `json:"text"`
+	Image       string               `json:"image"`
+	CookingTime int                  `json:"cooking_time"`
+	Servings    int                  `json:"servings"`
+	Tags        []string             `json:"tags"` // слагi тегов
+	Ingredients []RecipeIngredientIn `json:"ingredients"`
 }
 
 // Paginated — формат DRF-подобной пагинации, который ждёт фронтенд.
 type Paginated[T any] struct {
-	Count   int    `json:"count"`
-	Next    *string `json:"next"`
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
 	Previous *string `json:"previous"`
-	Results []T    `json:"results"`
+	Results  []T     `json:"results"`
 }
 
 // RecipeFilter — параметры GET /api/recipes/
 type RecipeFilter struct {
-	Tags        []string
-	Author      *int64
-	IsFavorited bool
-	Page        int
-	Limit       int
+	Tags           []string
+	Author         *int64
+	IsFavorited    bool
+	OnlySubscribed bool
+	Search         string
+	Sort           string
+	Page           int
+	Limit          int
 }

@@ -246,9 +246,9 @@ export default function App() {
                 <div className="mt-8 flex flex-wrap items-center gap-3.5">
                   <button
                     onClick={scrollToFeed}
-                    className="liquid-btn rounded-full px-7 py-3.5 text-sm font-extrabold text-coal group"
+                    className="liquid-btn min-w-44 whitespace-nowrap rounded-full px-7 py-3.5 text-sm font-extrabold text-coal group"
                   >
-                    <span className="absolute inset-[2px] rounded-full bg-saffron flex items-center gap-2 transition-colors group-hover:bg-amber2">
+                    <span className="absolute inset-[2px] rounded-full bg-saffron flex items-center justify-center gap-2 transition-colors group-hover:bg-amber2">
                       Смотреть ленту
                       <IconArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </span>
@@ -461,7 +461,7 @@ export default function App() {
 
                   <div className="flex items-center gap-2">
                     <IconFilter className="w-4 h-4 text-dim shrink-0" />
-                    <div className="flex rounded-xl border border-line bg-coal/60 p-1">
+                    <div className="flex flex-wrap rounded-xl border border-line bg-coal/60 p-1">
                       {(
                         [
                           ["new", "Сначала новые"],
@@ -475,7 +475,7 @@ export default function App() {
                             setSort(v);
                             resetPage();
                           }}
-                          className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all ${
+                          className={`shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-bold transition-all ${
                             sort === v ? "bg-saffron text-coal shadow-sm" : "text-mute hover:text-ink"
                           }`}
                         >

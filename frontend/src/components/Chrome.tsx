@@ -160,7 +160,7 @@ export function LiquidHeader({
           scrolled ? "py-2" : "py-3"
         }`}
       >
-        <div className="relative z-10 flex items-center gap-2 sm:gap-4 px-3 sm:px-5">
+        <div className="relative z-10 flex min-w-0 items-center gap-2 sm:gap-4 px-3 sm:px-5">
           <button
             onClick={() => onView("feed")}
             className="group flex items-center gap-2.5 shrink-0"
@@ -172,12 +172,12 @@ export function LiquidHeader({
             </span>
           </button>
 
-          <nav className="flex items-center gap-1 sm:gap-2 mx-auto" aria-label="Основная навигация">
+          <nav className="site-nav min-w-0 flex flex-1 items-center justify-center gap-1 sm:gap-2 mx-auto overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Основная навигация">
             {tabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => onView(t.id)}
-                className={`navlink px-2 sm:px-3.5 py-2 rounded-full text-[11px] sm:text-sm font-semibold transition-colors ${
+                className={`navlink shrink-0 whitespace-nowrap px-2 sm:px-3.5 py-2 rounded-full text-[11px] sm:text-sm font-semibold transition-colors ${
                   view === t.id ? "active text-ink" : "text-mute hover:text-ink"
                 }`}
               >
@@ -231,7 +231,7 @@ export function LiquidHeader({
             ) : (
               <button
                 onClick={onLogin}
-                className="liquid-btn group rounded-full px-3 sm:px-5 py-2.5 text-[11px] sm:text-sm font-extrabold text-coal"
+                className="liquid-btn min-w-20 whitespace-nowrap group rounded-full px-3 sm:px-5 py-2.5 text-[11px] sm:text-sm font-extrabold text-coal"
               >
                 <span className="absolute inset-[2px] rounded-full bg-saffron grid place-items-center transition-colors group-hover:bg-amber2">
                   <span className="relative z-10">Войти</span>
@@ -332,7 +332,7 @@ export function Footer({ onView }: { onView: (v: View) => void }) {
                     >
                       {e.method}
                     </span>
-                    <code className="font-mono text-xs text-ink group-hover:text-saffron transition-colors">{e.path}</code>
+                    <code className="min-w-0 break-all font-mono text-xs text-ink group-hover:text-saffron transition-colors">{e.path}</code>
                   </div>
                   <p className="text-[11px] text-dim mt-0.5 pl-1">{e.note}</p>
                 </li>
