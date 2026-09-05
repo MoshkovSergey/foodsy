@@ -2,8 +2,7 @@
 
 Моно-репозиторий: весь frontend — в `frontend/`, весь backend — в `backend/`.
 
-```
-.
+```.
 ├── frontend/              # React 18 + Vite + Tailwind 4 (тёмная «liquid»-тема)
 │   ├── index.html
 │   ├── package.json
@@ -39,8 +38,7 @@ cd backend && docker compose up --build   # API на :8000, PostgreSQL на :543
 React 18 + TypeScript + Vite 6 + Tailwind CSS 4, тёмная «liquid»-тема
 (шрифты Unbounded / Manrope / JetBrains Mono).
 
-```
-frontend/
+```frontend/
 ├── index.html              # входная страница, шрифты, favicon
 ├── vite.config.js          # сборка в ../dist (корень моно-репо)
 ├── tsconfig.json
@@ -110,6 +108,23 @@ npm run dev
 
 Без `VITE_API_URL` приложение работает в демо-режиме на встроенной симуляции
 того же REST-контракта, что реализует `backend/`.
+
+Для production с одним доменом используйте same-origin API:
+
+```bash
+cp .env.production.example .env.production
+npm run build
+```
+
+В `.env.production` должно быть:
+
+```env
+VITE_API_URL=/api
+```
+
+Готовая конфигурация Nginx находится в `deploy/nginx/foodsy.conf`. Она отдаёт
+статический frontend и проксирует `/api/` на Go API, работающий на
+`127.0.0.1:8000`.
 
 ## Стек
 

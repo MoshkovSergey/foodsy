@@ -1,31 +1,33 @@
 services:
   db:
     image: postgres:16-alpine
+    restart: unless-stopped
     environment:
       POSTGRES_USER: foodsy
-      POSTGRES_PASSWORD: foodsy
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
       POSTGRES_DB: foodsy
-    ports:
-      - "5432:5432"
     volumes:
       - pg:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U foodsy"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 3s
       retries: 10
+      start_period: 10s
 
   api:
     build: .
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
     environment:
-      FOODSY_DB: postgres://foodsy:foodsy@db:5432/foodsy?sslmode=disable
-      FOODSY_JWT_SECRET: ${FOODSY_JWT_SECRET:-change-me-in-prod}
+      FOODSY_DB: postgres://foodsy:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}@db:5432/foodsy?sslmode=disable
+      FOODSY_JWT_SECRET: ${FOODSY_JWT_SECRET:?FOODSY_JWT_SECRET is required}
       FOODSY_PORT: "8000"
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
+    stop_grace_period: 15s
 
 volumes:
   pg:
