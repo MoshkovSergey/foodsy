@@ -18,3 +18,5 @@ build/
 frontend/node_modules/
 frontend/.env
 frontend/.env.example
+go.work
+go.work.sum

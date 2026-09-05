@@ -64,7 +64,7 @@ export function RecipeModal({
     });
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-6" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-80 flex items-end sm:items-center justify-center p-0 sm:p-6" role="dialog" aria-modal="true">
       <div className="fade-bg absolute inset-0 bg-coal/85 backdrop-blur-sm" onClick={onClose} />
       <div className="modal-in relative flex flex-col w-full sm:max-w-4xl max-h-[92vh] overflow-hidden rounded-t-3xl sm:rounded-3xl border border-line bg-panel shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]">
         <button
@@ -78,7 +78,7 @@ export function RecipeModal({
         <div className="grid flex-1 min-h-0 md:grid-cols-[0.95fr_1.05fr] grid-rows-[auto_minmax(0,1fr)] md:grid-rows-1">
           <div className="relative h-60 md:h-auto min-h-0 bg-deep overflow-hidden">
             <FoodImg src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-coal/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-coal/80 via-transparent to-transparent" />
             <Steam className="absolute bottom-16 left-1/2 -translate-x-1/2 w-14 h-14 text-ink/70" />
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
               {recipe.tags.map((t) => {
@@ -163,7 +163,7 @@ export function RecipeModal({
             <ol className="mt-3 space-y-3">
               {recipe.steps.map((s, i) => (
                 <li key={i} className="flex gap-3.5">
-                  <span className="shrink-0 grid place-items-center w-7 h-7 rounded-full bg-gradient-to-br from-coral/20 to-saffron/20 border border-coral/30 font-mono text-xs font-bold text-saffron">
+                  <span className="shrink-0 grid place-items-center w-7 h-7 rounded-full bg-linear-to-br from-coral/20 to-saffron/20 border border-coral/30 font-mono text-xs font-bold text-saffron">
                     {i + 1}
                   </span>
                   <p className="text-sm leading-relaxed text-ink/90 pt-1">{s}</p>
@@ -171,7 +171,7 @@ export function RecipeModal({
               ))}
             </ol>
 
-            <div className="sticky bottom-0 mt-8 -mx-6 sm:-mx-8 px-6 sm:px-8 pt-5 pb-5 border-t border-line/50 bg-gradient-to-t from-panel via-panel/95 to-transparent flex flex-wrap gap-3">
+            <div className="sticky bottom-0 mt-8 -mx-6 sm:-mx-8 px-6 sm:px-8 pt-5 pb-5 border-t border-line/50 bg-linear-to-t from-panel via-panel/95 to-transparent flex flex-wrap gap-3">
               <button
                 onClick={onFav}
                 className={`min-w-[min(100%,12rem)] min-h-11 flex-1 inline-flex items-center justify-center gap-2 rounded-full px-3 py-3 text-center text-sm font-extrabold border transition-colors ${
@@ -220,7 +220,7 @@ export function CartDrawer({
   const uniqueIngredients = new Set(items.flatMap((r) => r.ingredients.map((i) => i.name.toLowerCase()))).size;
 
   return (
-    <div className="fixed inset-0 z-[80]" role="dialog" aria-modal="true" aria-label="Список покупок">
+    <div className="fixed inset-0 z-80" role="dialog" aria-modal="true" aria-label="Список покупок">
       <div className="fade-bg absolute inset-0 bg-coal/80 backdrop-blur-sm" onClick={onClose} />
       <aside className="drawer-in absolute right-0 top-0 h-full w-full max-w-md border-l border-line bg-panel flex flex-col">
         <div className="flex items-center gap-3 px-6 py-5 border-b border-line">
@@ -249,7 +249,7 @@ export function CartDrawer({
               <div>
                 <IconBasket className="w-12 h-12 mx-auto text-line2" />
                 <p className="mt-4 text-sm font-bold">Пока пусто</p>
-                <p className="mt-1.5 text-xs text-mute leading-relaxed max-w-[220px]">
+                <p className="mt-1.5 text-xs text-mute leading-relaxed max-w-55">
                   Добавляйте рецепты кнопкой «В покупки» — соберём общий список ингредиентов.
                 </p>
               </div>
@@ -281,7 +281,7 @@ export function CartDrawer({
               onClick={onDownload}
               className="liquid-btn w-full rounded-full py-3.5 text-sm font-extrabold text-coal"
             >
-              <span className="absolute inset-[2px] rounded-full bg-mint flex items-center justify-center gap-2">
+              <span className="absolute inset-0.5 rounded-full bg-mint flex items-center justify-center gap-2">
                 <IconDownload className="w-4.5 h-4.5" strokeWidth={2.2} />
                 Скачать список (.txt)
               </span>
@@ -327,7 +327,7 @@ export function LoginModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-80 flex items-center justify-center p-4" role="dialog" aria-modal="true">
       <div className="fade-bg absolute inset-0 bg-coal/85 backdrop-blur-sm" onClick={onClose} />
       <div className="modal-in relative w-full max-w-sm rounded-3xl border border-line bg-panel p-7">
         <button
@@ -373,7 +373,7 @@ export function LoginModal({
             disabled={busy}
             className="liquid-btn w-full rounded-full py-3.5 text-sm font-extrabold text-coal disabled:opacity-60"
           >
-            <span className="absolute inset-[2px] rounded-full bg-saffron grid place-items-center">
+            <span className="absolute inset-0.5 rounded-full bg-saffron grid place-items-center">
               {busy ? (
                 <span className="flex items-center gap-2">
                   <span className="w-4 h-4 rounded-full border-2 border-coal/30 border-t-coal animate-spin" />
@@ -393,7 +393,7 @@ export function LoginModal({
 /* ── Тосты ─────────────────────────────────────────────────────────────── */
 export function Toasts({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id: number) => void }) {
   return (
-    <div className="fixed bottom-5 right-5 z-[90] space-y-2.5 max-w-[calc(100vw-2.5rem)]" aria-live="polite">
+    <div className="fixed bottom-5 right-5 z-90 space-y-2.5 max-w-[calc(100vw-2.5rem)]" aria-live="polite">
       {toasts.map((t) => (
         <button
           key={t.id}

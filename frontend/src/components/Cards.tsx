@@ -7,7 +7,7 @@ export function FoodImg({ src, alt, className = "" }: { src: string; alt: string
   if (failed) {
     return (
       <div className={`grid place-items-center bg-deep ${className}`} role="img" aria-label={alt}>
-        <svg viewBox="0 0 96 96" className="w-1/2 max-w-[110px]" fill="none" aria-hidden="true">
+        <svg viewBox="0 0 96 96" className="w-1/2 max-w-27.5" fill="none" aria-hidden="true">
           <circle cx="48" cy="50" r="30" fill="#ffb03a" fillOpacity="0.06" />
           <circle cx="48" cy="50" r="30" stroke="#ffb03a" strokeOpacity="0.25" strokeWidth="1.5" strokeDasharray="3 6" />
           <path d="M30 52h36v10a12 12 0 0 1-12 12H42a12 12 0 0 1-12-12V52Z" stroke="#ffb03a" strokeWidth="2.5" strokeLinejoin="round" />
@@ -118,9 +118,9 @@ export function RecipeCard({
       onKeyDown={(e) => e.key === "Enter" && onOpen()}
       aria-label={`Рецепт: ${recipe.title}`}
     >
-      <div className="relative aspect-[3/2] overflow-hidden bg-deep">
+      <div className="relative aspect-3/2 overflow-hidden bg-deep">
         <FoodImg src={recipe.image} alt={recipe.title} className="rcard-img w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-coal/70 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-coal/70 via-transparent to-transparent" />
         <div className="rcard-sheen" />
 
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[70%]">
@@ -209,7 +209,7 @@ export function RecipeCard({
 export function SkeletonCard() {
   return (
     <div className="h-full overflow-hidden rounded-2xl border border-line bg-panel">
-      <div className="skeleton aspect-[3/2]" />
+      <div className="skeleton aspect-3/2" />
       <div className="p-5 space-y-3">
         <div className="skeleton h-4 w-3/4 rounded" />
         <div className="skeleton h-3 w-full rounded" />
@@ -274,7 +274,7 @@ export function AuthorCard({
           <button
             key={r.id}
             onClick={() => onOpenRecipe(r.id)}
-            className="group/thumb relative aspect-[4/3] overflow-hidden rounded-lg border border-line"
+            className="group/thumb relative aspect-4/3 overflow-hidden rounded-lg border border-line"
             aria-label={`Открыть: ${r.title}`}
           >
             <FoodImg src={r.image} alt={r.title} className="w-full h-full object-cover transition-transform duration-700 group-hover/thumb:scale-110" />
@@ -373,7 +373,7 @@ export function EmptyState({
           onClick={onAction}
           className="mt-6 liquid-btn min-w-40 whitespace-nowrap rounded-full px-6 py-3 text-sm font-extrabold text-coal"
         >
-          <span className="absolute inset-[2px] rounded-full bg-saffron">{actionLabel}</span>
+          <span className="absolute inset-0.5 rounded-full bg-saffron">{actionLabel}</span>
         </button>
       )}
     </div>

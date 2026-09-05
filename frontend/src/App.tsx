@@ -248,7 +248,7 @@ export default function App() {
                     onClick={scrollToFeed}
                     className="liquid-btn min-w-44 whitespace-nowrap rounded-full px-7 py-3.5 text-sm font-extrabold text-coal group"
                   >
-                    <span className="absolute inset-[2px] rounded-full bg-saffron flex items-center justify-center gap-2 transition-colors group-hover:bg-amber2">
+                    <span className="absolute inset-0.5 rounded-full bg-saffron flex items-center justify-center gap-2 transition-colors group-hover:bg-amber2">
                       Смотреть ленту
                       <IconArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </span>
@@ -260,7 +260,7 @@ export default function App() {
                     <IconBasket className="w-4.5 h-4.5" />
                     Список покупок
                     {user.cart.length > 0 && (
-                      <span className="grid place-items-center min-w-[20px] h-5 px-1 rounded-full bg-mint/15 text-mint text-[11px] font-extrabold tabular">
+                      <span className="grid place-items-center min-w-5 h-5 px-1 rounded-full bg-mint/15 text-mint text-[11px] font-extrabold tabular">
                         {user.cart.length}
                       </span>
                     )}
@@ -296,9 +296,9 @@ export default function App() {
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setOpenId(featured.id)}
               >
-                <div className="relative aspect-[16/11] overflow-hidden">
+                <div className="relative aspect-16/11 overflow-hidden">
                   <FoodImg src={featured.image} alt={featured.title} className="rcard-img w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-coal via-coal/25 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-coal via-coal/25 to-transparent" />
                   <div className="rcard-sheen" />
                   <Steam className="absolute top-6 right-6 w-12 h-12 text-saffron/80" />
 

@@ -470,7 +470,8 @@ func (s *Store) ShoppingCart(ctx context.Context, userID int64) (string, time.Ti
 
 	var b strings.Builder
 	b.WriteString("СПИСОК ПОКУПОК • ФУДСИ\n")
-	b.WriteString(strings.Repeat("═", 34) + "\n\n")
+	b.WriteString(strings.Repeat("═", 34))
+	b.WriteString("\n\n")
 	for _, key := range order {
 		e := agg[key]
 		name := strings.ToUpper(key[:1]) + key[1:]

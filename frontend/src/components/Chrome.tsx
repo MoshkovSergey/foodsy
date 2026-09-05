@@ -172,7 +172,7 @@ export function LiquidHeader({
             </span>
           </button>
 
-          <nav className="site-nav min-w-0 flex flex-1 items-center justify-center gap-1 sm:gap-2 mx-auto overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Основная навигация">
+          <nav className="site-nav min-w-0 flex flex-1 items-center justify-center gap-1 sm:gap-2 mx-auto overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden" aria-label="Основная навигация">
             {tabs.map((t) => (
               <button
                 key={t.id}
@@ -183,7 +183,7 @@ export function LiquidHeader({
               >
                 {t.label}
                 {typeof t.count === "number" && t.count > 0 && (
-                  <span className="ml-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-saffron/15 text-saffron text-[10px] font-bold tabular">
+                  <span className="ml-1.5 inline-flex items-center justify-center min-w-4.5 h-4.5 px-1 rounded-full bg-saffron/15 text-saffron text-[10px] font-bold tabular">
                     {t.count}
                   </span>
                 )}
@@ -201,7 +201,7 @@ export function LiquidHeader({
               {cartCount > 0 && (
                 <span
                   key={cartCount}
-                  className="pop absolute -top-1 -right-1 grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-coral text-[10px] font-extrabold text-coal"
+                  className="pop absolute -top-1 -right-1 grid place-items-center min-w-4.5 h-4.5 px-1 rounded-full bg-coral text-[10px] font-extrabold text-coal"
                 >
                   {cartCount}
                 </span>
@@ -217,7 +217,7 @@ export function LiquidHeader({
                   >
                     {session.name.charAt(0).toUpperCase()}
                   </span>
-                  <span className="text-xs font-bold max-w-[90px] truncate">{session.name}</span>
+                  <span className="text-xs font-bold max-w-22.5 truncate">{session.name}</span>
                 </div>
                 <button
                   onClick={onLogout}
@@ -233,7 +233,7 @@ export function LiquidHeader({
                 onClick={onLogin}
                 className="liquid-btn min-w-20 whitespace-nowrap group rounded-full px-3 sm:px-5 py-2.5 text-[11px] sm:text-sm font-extrabold text-coal"
               >
-                <span className="absolute inset-[2px] rounded-full bg-saffron grid place-items-center transition-colors group-hover:bg-amber2">
+                <span className="absolute inset-0.5 rounded-full bg-saffron grid place-items-center transition-colors group-hover:bg-amber2">
                   <span className="relative z-10">Войти</span>
                 </span>
               </button>
@@ -266,8 +266,8 @@ export function Ticker() {
         {row("a")}
         {row("b")}
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-coal to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-coal to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-coal to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-coal to-transparent" />
     </div>
   );
 }
@@ -285,7 +285,7 @@ const ENDPOINTS: { method: string; path: string; note: string }[] = [
 export function Footer({ onView }: { onView: (v: View) => void }) {
   return (
     <footer className="relative mt-24 border-t border-line/70 bg-deep/50">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-saffron/50 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-saffron/50 to-transparent" />
       <div className="max-w-6xl mx-auto px-5 py-14 relative">
         <div
           className="pointer-events-none absolute -top-4 left-1/2 -translate-x-1/2 display-xl font-black text-[19vw] sm:text-[10rem] leading-none text-hollow opacity-40 select-none whitespace-nowrap"
