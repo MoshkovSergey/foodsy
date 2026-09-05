@@ -16,8 +16,8 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/foodsy/backend/internal/models"
-	"github.com/foodsy/backend/internal/store"
+	"github.com/MoshkovSergey/foodsy/backend/internal/models"
+	"github.com/MoshkovSergey/foodsy/backend/store"
 )
 
 type ctxKey string

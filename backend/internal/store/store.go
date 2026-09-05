@@ -13,7 +13,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/foodsy/backend/internal/models"
+	"github.com/MoshkovSergey/foodsy/backend/internal/models"
 )
 
 //go:embed migrations/*.sql

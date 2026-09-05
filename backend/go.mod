@@ -1,4 +1,4 @@
-module github.com/foodsy/backend
+module github.com/MoshkovSergey/foodsy/backend
 
 go 1.27
 

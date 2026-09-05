@@ -15,8 +15,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/foodsy/backend/internal/api"
-	"github.com/foodsy/backend/internal/store"
+	"github.com/MoshkovSergey/foodsy/backend/internal/api"
+	"github.com/MoshkovSergey/foodsy/backend/internal/store"
 )
 
 func main() {
